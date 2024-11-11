@@ -5,6 +5,7 @@ import {
   createMemberIntoDB,
   getAllMembersFromDB,
   getSingleMemberFromDB,
+  updateMemberIntoDB,
 } from "./member.services";
 
 const createMember = catchAsync(async (req, res) => {
@@ -41,4 +42,16 @@ const getSingleMember = catchAsync(async (req, res) => {
   });
 });
 
-export { createMember, getAllMembers, getSingleMember };
+const updateMember = catchAsync(async (req, res) => {
+  const { memberId } = req.params;
+  const result = await updateMemberIntoDB(memberId, req.body);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Member updated successfully",
+    data: result,
+  });
+});
+
+export { createMember, getAllMembers, getSingleMember, updateMember };

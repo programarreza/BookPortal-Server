@@ -4,8 +4,12 @@ import {
   createMember,
   getAllMembers,
   getSingleMember,
+  updateMember,
 } from "./member.controller";
-import { createMemberSchemaValidation } from "./member.validation";
+import {
+  createMemberSchemaValidation,
+  updateMemberSchemaValidation,
+} from "./member.validation";
 
 const memberRoutes = Router();
 
@@ -17,5 +21,10 @@ memberRoutes.post(
 
 memberRoutes.get("/", getAllMembers);
 memberRoutes.get("/:memberId", getSingleMember);
+memberRoutes.put(
+  "/:memberId",
+  validateRequest(updateMemberSchemaValidation),
+  updateMember
+);
 
 export default memberRoutes;
