@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { createBorrow } from "./borrow.controller";
+import { createBorrow, getOverdueBorrow } from "./borrow.controller";
 
 const borrowRoutes = Router();
 
 borrowRoutes.post("/", createBorrow);
+borrowRoutes.get("/overdue", getOverdueBorrow);
 
 export default borrowRoutes;
