@@ -3,6 +3,7 @@ import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
 import {
   createMemberIntoDB,
+  deleteMemberIntoDB,
   getAllMembersFromDB,
   getSingleMemberFromDB,
   updateMemberIntoDB,
@@ -54,4 +55,22 @@ const updateMember = catchAsync(async (req, res) => {
   });
 });
 
-export { createMember, getAllMembers, getSingleMember, updateMember };
+const deleteMember = catchAsync(async (req, res) => {
+  const { memberId } = req.params;
+  const result = await deleteMemberIntoDB(memberId);
+
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Member successfully deleted",
+    data: result,
+  });
+});
+
+export {
+  createMember,
+  deleteMember,
+  getAllMembers,
+  getSingleMember,
+  updateMember,
+};

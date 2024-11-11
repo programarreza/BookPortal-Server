@@ -52,9 +52,36 @@ const updateMemberIntoDB = async (memberId: string, data: Partial<TMember>) => {
   return result;
 };
 
+const deleteMemberIntoDB = async (memberId: string) => {
+  await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId,
+    },
+  });
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    // delete associated borrow records first
+    await transactionClient.borrowRecord.deleteMany({
+      where: {
+        memberId,
+      },
+    });
+
+    // delete the member from the member table
+    await transactionClient.member.delete({
+      where: {
+        memberId,
+      },
+    });
+  });
+
+  return null;
+};
+
 export {
   createMemberIntoDB,
   getAllMembersFromDB,
   getSingleMemberFromDB,
   updateMemberIntoDB,
+  deleteMemberIntoDB
 };

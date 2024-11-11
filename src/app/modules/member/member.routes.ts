@@ -2,6 +2,7 @@ import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
 import {
   createMember,
+  deleteMember,
   getAllMembers,
   getSingleMember,
   updateMember,
@@ -26,5 +27,7 @@ memberRoutes.put(
   validateRequest(updateMemberSchemaValidation),
   updateMember
 );
+
+memberRoutes.delete("/:memberId", deleteMember);
 
 export default memberRoutes;
