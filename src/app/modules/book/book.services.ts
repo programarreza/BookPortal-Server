@@ -8,7 +8,7 @@ const createBookIntoDB = async (data: TBook) => {
     },
   });
 
-  console.log(isExist)
+  console.log(isExist);
 
   if (isExist) {
     throw new Error("this book already exist");
@@ -21,4 +21,10 @@ const createBookIntoDB = async (data: TBook) => {
   return result;
 };
 
-export { createBookIntoDB };
+const getAllBooksFromDB = async () => {
+  const result = await prisma.book.findMany({});
+
+  return result;
+};
+
+export { createBookIntoDB, getAllBooksFromDB };

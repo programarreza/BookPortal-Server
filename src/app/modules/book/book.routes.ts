@@ -1,8 +1,11 @@
 import { Router } from "express";
-import { createBook } from "./book.controllers";
+import validateRequest from "../../middlewares/validateRequest";
+import { createBook, getAllBooks } from "./book.controllers";
+import { createBookSchemaValidation } from "./book.validation";
 
 const bookRoutes = Router();
 
-bookRoutes.post("/", createBook);
+bookRoutes.post("/", validateRequest(createBookSchemaValidation), createBook);
+bookRoutes.get("/", getAllBooks);
 
 export { bookRoutes };
