@@ -19,4 +19,10 @@ const createMemberIntoDB = async (data: TMember) => {
   return result;
 };
 
-export { createMemberIntoDB };
+const getAllMembersFromDB = async () => {
+  const result = await prisma.member.findMany({});
+
+  return result;
+};
+
+export { createMemberIntoDB, getAllMembersFromDB };
