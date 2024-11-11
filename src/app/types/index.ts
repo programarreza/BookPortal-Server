@@ -12,3 +12,8 @@ export type TMember = {
   phone: string;
   membershipDate: Date;
 };
+
+export type TBorrow = {
+  bookId: string;
+  memberId: string;
+};
