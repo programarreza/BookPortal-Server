@@ -5,6 +5,7 @@ import {
   createBookIntoDB,
   getAllBooksFromDB,
   getSingleBookFromDB,
+  updateBookIntoDB,
 } from "./book.services";
 
 const createBook = catchAsync(async (req, res) => {
@@ -40,4 +41,16 @@ const getSingleBook = catchAsync(async (req, res) => {
   });
 });
 
-export { createBook, getAllBooks, getSingleBook };
+const updateBook = catchAsync(async (req, res) => {
+  const { bookId } = req.params;
+
+  const result = await updateBookIntoDB(bookId, req.body);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Book updated successfully",
+    data: result,
+  });
+});
+
+export { createBook, getAllBooks, getSingleBook, updateBook };

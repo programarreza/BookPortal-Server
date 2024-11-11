@@ -37,4 +37,26 @@ const getSingleBookFromDB = async (bookId: string) => {
   return result;
 };
 
-export { createBookIntoDB, getAllBooksFromDB, getSingleBookFromDB };
+const updateBookIntoDB = async (bookId: string, data: Partial<TBook>) => {
+  await prisma.book.findUniqueOrThrow({
+    where: {
+      bookId,
+    },
+  });
+
+  const result = await prisma.book.update({
+    where: {
+      bookId,
+    },
+    data,
+  });
+
+  return result;
+};
+
+export {
+  createBookIntoDB,
+  getAllBooksFromDB,
+  getSingleBookFromDB,
+  updateBookIntoDB,
+};
