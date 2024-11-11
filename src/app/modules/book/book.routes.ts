@@ -2,6 +2,7 @@ import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
 import {
   createBook,
+  deleteBook,
   getAllBooks,
   getSingleBook,
   updateBook,
@@ -21,5 +22,6 @@ bookRoutes.put(
   validateRequest(updateBookSchemaValidation),
   updateBook
 );
+bookRoutes.delete("/:bookId", deleteBook);
 
 export { bookRoutes };

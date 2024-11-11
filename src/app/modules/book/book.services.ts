@@ -52,8 +52,35 @@ const updateBookIntoDB = async (bookId: string, data: Partial<TBook>) => {
   return result;
 };
 
+const deleteBookIntoDB = async (bookId: string) => {
+  await prisma.book.findUniqueOrThrow({
+    where: {
+      bookId,
+    },
+  });
+
+  const result = await prisma.$transaction(async (transactionClient) => {
+    // delete associated borrow records first
+    await transactionClient.borrowRecord.deleteMany({
+      where: {
+        bookId,
+      },
+    });
+
+    // delete the book from the book table
+    await transactionClient.book.delete({
+      where: {
+        bookId,
+      },
+    });
+  });
+
+  return null;
+};
+
 export {
   createBookIntoDB,
+  deleteBookIntoDB,
   getAllBooksFromDB,
   getSingleBookFromDB,
   updateBookIntoDB,
