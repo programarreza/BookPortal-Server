@@ -1,7 +1,11 @@
 import { StatusCodes } from "http-status-codes";
 import catchAsync from "../../shared/catchAsync";
 import sendResponse from "../../shared/sendResponse";
-import { createBookIntoDB, getAllBooksFromDB } from "./book.services";
+import {
+  createBookIntoDB,
+  getAllBooksFromDB,
+  getSingleBookFromDB,
+} from "./book.services";
 
 const createBook = catchAsync(async (req, res) => {
   const result = await createBookIntoDB(req.body);
@@ -24,4 +28,16 @@ const getAllBooks = catchAsync(async (req, res) => {
   });
 });
 
-export { createBook, getAllBooks };
+const getSingleBook = catchAsync(async (req, res) => {
+  const { bookId } = req.params;
+
+  const result = await getSingleBookFromDB(bookId);
+  sendResponse(res, {
+    statusCode: StatusCodes.OK,
+    success: true,
+    message: "Book retrieved successfully",
+    data: result,
+  });
+});
+
+export { createBook, getAllBooks, getSingleBook };
