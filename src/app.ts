@@ -10,9 +10,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // routes
-app.use("/api/v1", router);
+app.use("/api", router);
 
 app.use(globalErrorHandler);
+
+app.get("/", (req: Request, res: Response) => {
+  res.send({
+    message: "book portal server",
+  });
+});
 
 app.use((req: Request, res: Response, next: NextFunction) => {
   res.status(StatusCodes.NOT_FOUND).json({
@@ -23,12 +29,6 @@ app.use((req: Request, res: Response, next: NextFunction) => {
       method: req.method,
       message: "Your request path is not found!",
     },
-  });
-});
-
-app.get("/", (req: Request, res: Response) => {
-  res.send({
-    message: "book portal server",
   });
 });
 
