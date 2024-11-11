@@ -25,4 +25,14 @@ const getAllMembersFromDB = async () => {
   return result;
 };
 
-export { createMemberIntoDB, getAllMembersFromDB };
+const getSingleMemberFromDB = async (memberId: string) => {
+  const result = await prisma.member.findUniqueOrThrow({
+    where: {
+      memberId,
+    },
+  });
+
+  return result;
+};
+
+export { createMemberIntoDB, getAllMembersFromDB, getSingleMemberFromDB };

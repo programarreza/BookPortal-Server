@@ -1,6 +1,10 @@
 import { Router } from "express";
 import validateRequest from "../../middlewares/validateRequest";
-import { createMember, getAllMembers } from "./member.controller";
+import {
+  createMember,
+  getAllMembers,
+  getSingleMember,
+} from "./member.controller";
 import { createMemberSchemaValidation } from "./member.validation";
 
 const memberRoutes = Router();
@@ -12,5 +16,6 @@ memberRoutes.post(
 );
 
 memberRoutes.get("/", getAllMembers);
+memberRoutes.get("/:memberId", getSingleMember);
 
 export default memberRoutes;
