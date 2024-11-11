@@ -31,7 +31,7 @@ model Author {
 model Member {
   memberId       String   @id @default(uuid())
   name           String
-  email          String
+  email          String   @unique
   phone          String
   membershipDate DateTime
 

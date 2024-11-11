@@ -8,8 +8,6 @@ const createBookIntoDB = async (data: TBook) => {
     },
   });
 
-  console.log(isExist);
-
   if (isExist) {
     throw new Error("this book already exist");
   }
