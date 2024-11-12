@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "start:dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "prod": "NODE_ENV=production node ./dist/server.js"
+    "start": "node ./dist/server.js",
+    "build": "tsc",
+    "postinstall": "prisma generate"
   },
   "devDependencies": {
     "@types/express": "^5.0.0",
